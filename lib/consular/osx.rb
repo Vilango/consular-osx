@@ -207,11 +207,13 @@ module Consular
     #
     # @api semipublic
     def set_options(options = {})
+      return if options.nil?
+      options.delete(:name)
       options.each do |o|
-        case o
-        when :bounds
-          puts 'settings bound: #{options[:bounds]}'
-          eval("#{@window}.bounds.set(#{options[:bounds]})")
+        if ALLOWED_OPTIONS[:window].include?(o.first.to_sym)
+          cmd = "#{@window}.#{o.first}.set(#{o.last})"
+          puts "running: #{cmd}"
+          eval(cmd)
         else
           raise NotImplementedError, "Option #{o.first} unknown."
         end
@@ -246,7 +248,7 @@ module Consular
     # @api semipublic
     def active_window
       windows = @terminal.windows.get
-      @windows = windows.detect do |window|
+      @window = windows.detect do |window|
         window.properties_.get[:frontmost] rescue windows.first
       end
     end
@@ -258,6 +260,7 @@ module Consular
       terminal_process.keystroke(key, :using => :command_down)
       active_tab
       set_options options
+      @window
     end
 
   end
