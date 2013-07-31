@@ -33,3 +33,10 @@ end
 ```
 
 Now you can use OSX Terminal to run your Consular scripts!
+
+
+# Here are some OSX Terminal specific samples for your .term DSL files
+
+
+
+

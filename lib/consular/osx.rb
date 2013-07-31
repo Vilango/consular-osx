@@ -12,8 +12,9 @@ module Consular
     # The acceptable options that OSX Terminal will register.
     #
     ALLOWED_OPTIONS = {
-      :window => [:bounds, :visible, :miniaturized],
-      :tab    => [:settings, :selected]
+      #:window => [:bounds, :visible, :miniaturized],
+      :window => [:bounds, :visible, :miniaturized]
+      #:tab    => [:settings, :selected]
     } unless defined?(ALLOWED_OPTIONS)
 
     class << self
@@ -206,15 +207,18 @@ module Consular
     #
     # @api semipublic
     def set_options(options = {})
-      case options
-      when :bounds
-        puts 'settings bound: #{options[:bounds]}'
-        eval("#{@window}.bounds.set(#{options[:bounds]})")
-      else
-        raise NotImplementedError
+      options.each do |o|
+        case o
+        when :bounds
+          puts 'settings bound: #{options[:bounds]}'
+          eval("#{@window}.bounds.set(#{options[:bounds]})")
+        else
+          raise NotImplementedError, "Option #{o.first} unknown."
+        end
+        
       end
-      
     end
+    
 
     # Returns the current terminal process.
     # We need this method to workaround appscript so that we can
