@@ -44,6 +44,7 @@ module Consular
     def initialize(path)
       super
       @terminal = app('Terminal')
+      @window = nil
     end
 
     # Method called by runner to Execute Termfile setup.
@@ -183,7 +184,7 @@ module Consular
     #
     # @param [Hash] options
     #   Options to further customize the window. You can use:
-    #     :bound        - Set the bounds of the windows
+    #     :bounds        - Set the bounds of the windows
     #     :visible      - Set whether or not the current window is visible
     #     :miniaturized - Set whether or not the window is minimized
     #
@@ -205,7 +206,14 @@ module Consular
     #
     # @api semipublic
     def set_options(options = {})
-      # raise NotImplementedError
+      case options
+      when :bounds
+        puts 'settings bound: #{options[:bounds]}'
+        eval("#{@window}.bounds.set(#{options[:bounds]})")
+      else
+        raise NotImplementedError
+      end
+      
     end
 
     # Returns the current terminal process.
@@ -234,7 +242,7 @@ module Consular
     # @api semipublic
     def active_window
       windows = @terminal.windows.get
-      windows.detect do |window|
+      @windows = windows.detect do |window|
         window.properties_.get[:frontmost] rescue windows.first
       end
     end
@@ -244,8 +252,8 @@ module Consular
     # @api private
     def open_terminal_with(key, options = nil)
       terminal_process.keystroke(key, :using => :command_down)
-      set_options options
       active_tab
+      set_options options
     end
 
   end

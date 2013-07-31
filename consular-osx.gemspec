@@ -3,8 +3,8 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "consular-osx"
-  s.version     = '1.0.1'
-  s.authors     = ["Arthur Chiu"]
+  s.version     = '1.0.2'
+  s.authors     = ["Arthur Chiu", "Gerwin Brunner"]
   s.email       = ["mr.arthur.chiu@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Mac OSX Terminal core for Consular}
