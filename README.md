@@ -11,7 +11,8 @@ If you haven't already, install Consular:
 
 then install consular-osx:
 
-    $ gem install consular-osx
+    $ gem install specific_install
+    $ gem specific_install -l https://github.com/Vilango/consular-osx.git
 
 
 next, run `init`:
@@ -36,16 +37,16 @@ Now you can use OSX Terminal to run your Consular scripts!
 
 
 # Here are some OSX Terminal specific samples for your .term DSL files
-
+```ruby
 window "console", :bounds => [0, 451, 1680, 900], :miniaturized => true do 
   run " cd \"#{project_dir}\""
   run " rails c"
 end
-
+```
 
 
 # local building
 
-gem build consular-osx.gemspec && gem install consular-osx --no-rdoc --no-ri && consular start odm
+    gem build consular-osx.gemspec && gem install consular-osx --no-rdoc --no-ri && consular start XXX
 
 
